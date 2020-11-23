@@ -42,7 +42,7 @@ When errorHandling has been succesfully run, send data to a function that can ha
 
 ## Controller
 
-Execute **handleFetching**, try and fetch **List**, after send data to another function which can sort the fetched data.
+Execute **handleFetchingFromList**, try and fetch **List**, after send data to another function which can sort the fetched data.
 
 ```js
     function handleSortOfList() {
@@ -58,7 +58,7 @@ Execute **handleFetching**, try and fetch **List**, after send data to another f
     }
 ```
 
-After data is returned to our **handleFetching** function, send the sorted data to another function that will handle the distribution of the data to the Views. Make the data an array, and send it by using the **Spread Operator** <br>
+After data is returned to our **handleFetchingFromList** function, send the sorted data to another function that will handle the distribution of the data to the Views. Make the data an array, and send it by using the **Spread Operator** <br>
 
 Use **Rest Parameter** in **handleDistribution** to make sure you get data. Then use **Destructuring** of the param to get the data in singles. After it has been destructured send the data to the View. <br>
 * We need the { id, title, byline, image } to be passed to the first View.
