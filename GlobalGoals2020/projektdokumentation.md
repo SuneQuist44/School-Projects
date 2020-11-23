@@ -24,12 +24,12 @@ Create a entry function for the errorHandling. And make it a try and catch funct
     }
 ```
 
-* **List** (JSON format)
+**List** (JSON format) <br>
 Data: { <br>
 - id, title, byline, color, icon, image, request.type, request.url
 }
 
-* **Details** (JSON format)
+**Details** (JSON format) <br>
 Data: { <br>
 - id, title, byline, color, icon, image <br>
 - num_targets, **targets**, <br>
