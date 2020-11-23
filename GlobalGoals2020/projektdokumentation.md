@@ -24,7 +24,7 @@ Create a entry function for the errorHandling. And make it a try and catch funct
     }
 ```
 
-- When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
+When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
 
 ## Controller
 
