@@ -38,11 +38,11 @@ Data: { <br>
 
 }
 
-When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
+When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**handleFetching**)
 
 ## Controller
 
-Execute **HandleFetching**, try and fetch **List**, after send data to another function which can sort the fetched data.
+Execute **handleFetching**, try and fetch **List**, after send data to another function which can sort the fetched data.
 
 ```js
     function handleSortOfList() {
@@ -58,9 +58,13 @@ Execute **HandleFetching**, try and fetch **List**, after send data to another f
     }
 ```
 
-After data is returned to our **HandleFetching** function, send the sorted data to another function that will handle the distribution of the data to the Views. Make the data an array, and send it by using the **Spread Operator** <br>
+After data is returned to our **handleFetching** function, send the sorted data to another function that will handle the distribution of the data to the Views. Make the data an array, and send it by using the **Spread Operator** <br>
 
-Use **Rest Parameter** in HandleFetching to make sure you get data. Then use **Destructuring** of the param to get the data in singles. After it has been destructured send the data to the View. <br>
-* We need the { title, byline, image } to be passed to the first View.
+Use **Rest Parameter** in **handleDistribution** to make sure you get data. Then use **Destructuring** of the param to get the data in singles. After it has been destructured send the data to the View. <br>
+* We need the { id, title, byline, image } to be passed to the first View.
 
 ## View
+
+From the data that we got from **handleDistribution** { id, title, byline, image }, we need to create to items, one singule item and a group of items. The first is the big header, we need use all of the params for this one. We can -1 id so we get the current { title, byline, image } from the data, and then we wil display it as a big image in the center of the canvas. <br>
+
+The grouped items is supposed to be clickable objects, so they'll each need a container. For this we will also loop over the param to get the data we need. From the data we can create small boxes each containing their own id, as their each respected goal. There will max be shown 5 of these at a time, so we will make a small function making that possible (Instead of using a for of loop, we can just use a for i loop, which we then can decide the length of the array, we can then just up the number on user interations).
