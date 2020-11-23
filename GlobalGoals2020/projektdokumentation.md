@@ -24,6 +24,18 @@ Create a entry function for the errorHandling. And make it a try and catch funct
     }
 ```
 
+* **List** (JSON format)
+    Data: {
+        id, title, byline, color, icon, image, request.type, request.url
+    }
+
+* **Details** (JSON format)
+    Data: {
+        * id, title, byline, color, icon, image
+        * num_targets, targets, 
+            * targets.id, targets.goal_id, targets.sort_number, targets.title, targets.description
+    }
+
 When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
 
 ## Controller
