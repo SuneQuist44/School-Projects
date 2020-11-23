@@ -60,7 +60,7 @@ Execute **HandleFetching**, try and fetch **List**, after send data to another f
 
 After data is returned to our **HandleFetching** function, send the sorted data to another function that will handle the distribution of the data to the Views. Make the data an array, and send it by using the **Spread Operator** <br>
 
-Use **Rest Parameter** in HandleFetching to make sure you get data. Then use **Destructiring** of the param to get the data in singles. After it has been destructured send the data to the View. <br>
+Use **Rest Parameter** in HandleFetching to make sure you get data. Then use **Destructuring** of the param to get the data in singles. After it has been destructured send the data to the View. <br>
 * We need the { title, byline, image } to be passed to the first View.
 
 ## View
