@@ -15,7 +15,7 @@ Github Documentation setup: __23-11-2020__ <br>
 
 __Import errorHandling at top of file__
 
-Create a entry function for the errorHandling. And make it a try and catch function with out functions from our errorHandling js file.
+Create a entry function for the errorHandling (**Error Catching**). And make it a try and catch function with out functions from our errorHandling js file.
 
 ```js
     function checkEntry() {
@@ -35,7 +35,7 @@ Data: { <br>
 - id, title, byline, color, icon, image <br>
 - num_targets, **targets**, <br>
     - targets.id, targets.goal_id, targets.sort_number, targets.title, targets.description
-    
+
 }
 
 When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
@@ -57,5 +57,10 @@ Execute **HandleFetching**, try and fetch **List**, after send data to another f
         } */
     }
 ```
+
+After data is returned to our **HandleFetching** function, send the sorted data to another function that will handle the distribution of the data to the Views. Make the data an array, and send it by using the **Spread Operator** <br>
+
+Use **Rest Parameter** in HandleFetching to make sure you get data. Then use **Destructiring** of the param to get the data in singles. After it has been destructured send the data to the View. <br>
+* We need the image, title, byline, image.
 
 ## View
