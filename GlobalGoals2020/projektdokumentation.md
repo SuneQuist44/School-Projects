@@ -5,11 +5,11 @@ __English Version__
 Global Goals currently have 17 goals, out goal atm is to make a site with all of them displayed, and they should all be clickable, when clicked they will lead you to another page were details of the specefic goal is listed.
 
 There are currently two URI' we can get data from (The data is in JSON format).
-**List:** <https://api.mediehuset.net/sdg/goals>
-**Details:** <https://api.mediehuset.net/sdg/goals/{{id}}>
+* **List:** <https://api.mediehuset.net/sdg/goals>
+*  **Details:** <https://api.mediehuset.net/sdg/goals/{{id}}>
 
-Design prototype done: __23-11-2020__
-Github Documentation setup: __23-11-2020__
+Design prototype done: __23-11-2020__ <br>
+Github Documentation setup: __23-11-2020__ <br>
 
 ## Modal
 
@@ -24,7 +24,7 @@ Create a entry function for the errorHandling. And make it a try and catch funct
     }
 ```
 
--When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
+- When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
 
 ## Controller
 
