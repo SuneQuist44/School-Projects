@@ -25,16 +25,16 @@ Create a entry function for the errorHandling. And make it a try and catch funct
 ```
 
 * **List** (JSON format)
-    Data: { <br>
-        * id, title, byline, color, icon, image, request.type, request.url
-    }
+Data: { <br>
+- id, title, byline, color, icon, image, request.type, request.url
+}
 
 * **Details** (JSON format)
-    Data: { <br>
-        * id, title, byline, color, icon, image <br>
-        * num_targets, targets, <br>
-            * targets.id, targets.goal_id, targets.sort_number, targets.title, targets.description <br>
-    }
+Data: { <br>
+- id, title, byline, color, icon, image <br>
+- num_targets, targets, <br>
+    - targets.id, targets.goal_id, targets.sort_number, targets.title, targets.description <br>
+}
 
 When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
 
