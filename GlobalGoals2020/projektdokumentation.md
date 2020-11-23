@@ -32,8 +32,9 @@ Data: { <br>
 * **Details** (JSON format)
 Data: { <br>
 - id, title, byline, color, icon, image <br>
-- num_targets, targets, <br>
-    - targets.id, targets.goal_id, targets.sort_number, targets.title, targets.description <br>
+- num_targets, **targets**, <br>
+    - targets.id, targets.goal_id, targets.sort_number, targets.title, targets.description
+
 }
 
 When errorHandling has been succesfully run, send data to a function that can handle the fecthing (**HandleFetching**)
