@@ -55,6 +55,7 @@ body {
             
             // Items
             .items, img {
+                @include vendor(position, relative);
                 list-style: none;
                 width: $scroll-item-width;
                 border-radius: 10px;
@@ -63,7 +64,30 @@ body {
                 @include vendor(display, flex);
                 justify-content: center;
                 align-items: center;
-                @include vendor(white-space, nowrap);
+
+                .items-title {
+                    // Placement
+                    @include vendor(position, absolute);
+                    top: 50%;
+
+                    // Styling
+                    width: 100%;
+                    padding: .5rem;
+                    font-weight: bold;
+                    color: white;
+
+                    // Overflows
+                    @include vendor(overflow-wrap, break-word);
+                    @include vendor(word-wrap, break-word);
+                    @include vendor(hyphens, auto);
+                }
+
+                &:hover {
+                    cursor: grab;
+                    transform: scale(1.05);
+                }
+
+                &:active { cursor: grabbing; }
             }
         }
     }

@@ -67,6 +67,10 @@ body {
 }
 
 #home-section #scroll-section #scroll-roller .items, #home-section #scroll-section #scroll-roller img {
+  -moz-position: relative;
+  -webkit-position: relative;
+  -ms-position: relative;
+  position: relative;
   list-style: none;
   width: 10vw;
   border-radius: 10px;
@@ -81,9 +85,40 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -moz-white-space: nowrap;
-  -webkit-white-space: nowrap;
-  -ms-white-space: nowrap;
-  white-space: nowrap;
+}
+
+#home-section #scroll-section #scroll-roller .items .items-title, #home-section #scroll-section #scroll-roller img .items-title {
+  -moz-position: absolute;
+  -webkit-position: absolute;
+  -ms-position: absolute;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  padding: .5rem;
+  font-weight: bold;
+  color: white;
+  -moz-overflow-wrap: break-word;
+  -webkit-overflow-wrap: break-word;
+  -ms-overflow-wrap: break-word;
+  overflow-wrap: break-word;
+  -moz-word-wrap: break-word;
+  -webkit-word-wrap: break-word;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+#home-section #scroll-section #scroll-roller .items:hover, #home-section #scroll-section #scroll-roller img:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+#home-section #scroll-section #scroll-roller .items:active, #home-section #scroll-section #scroll-roller img:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 /*# sourceMappingURL=main.css.map */
