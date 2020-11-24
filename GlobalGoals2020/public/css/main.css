@@ -38,29 +38,37 @@ body {
   -webkit-overflow: hidden;
   -ms-overflow: hidden;
   overflow: hidden;
-  width: 60vw;
+  width: 50vw;
   height: 100vh;
   position: relative;
-}
-
-#home-section #scroll-section #scroll-roller {
-  position: absolute;
   -moz-display: flex;
   -webkit-display: flex;
   -ms-display: flex;
   display: -webkit-box;
   display: flex;
-  height: 100%;
-  -webkit-transition: -webkit-transform 1s linear;
-  transition: -webkit-transform 1s linear;
-  transition: transform 1s linear;
-  transition: transform 1s linear, -webkit-transform 1s linear;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#home-section #scroll-section #scroll-roller {
+  width: auto;
+  position: absolute;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -moz-display: flex;
+  -webkit-display: flex;
+  -ms-display: flex;
+  display: -webkit-box;
+  display: flex;
   gap: 1rem;
 }
 
 #home-section #scroll-section #scroll-roller .items, #home-section #scroll-section #scroll-roller img {
   list-style: none;
-  width: 12vw;
+  width: 10vw;
   border-radius: 10px;
   -moz-display: flex;
   -webkit-display: flex;

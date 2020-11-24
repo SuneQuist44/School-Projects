@@ -8,7 +8,7 @@
 
 // Reusable components (Scroll bar)
 $amount-of-items-in-scroll: 5;
-$scroll-width: 60vw;
+$scroll-width: 50vw;
 $scroll-item-width: #{$scroll-width / $amount-of-items-in-scroll};
 $max-xCords: calc(-#{$scroll-item-width} * 12);
 
@@ -22,6 +22,8 @@ body {
     @include vendor(font-family, sans-serif);
 }
 
+
+// Main
 #home-section {
     @include vendor(overflow, hidden);
     width: 100vw;
@@ -32,19 +34,26 @@ body {
     justify-content: center;
     align-items: center;
     
+    // Scroll Controller
     #scroll-section {
         @include vendor(overflow, hidden);
         width: $scroll-width;
         height: 100vh;
         position: relative;
         
+        @include vendor(display, flex);
+        align-items: center;
+
+        // Moveable object
         #scroll-roller {
+            width: auto;
             position: absolute;
+            @include vendor(user-select, none);
+
             @include vendor(display, flex);
-            height: 100%;
-            transition: transform 1s linear;
             gap: 1rem;
             
+            // Items
             .items, img {
                 list-style: none;
                 width: $scroll-item-width;

@@ -11,9 +11,7 @@ function checkEntry() {
 
         checkValidUrl.status == true ? handleFetchContentFromList(checkValidUrl.url) : handleError(checkValidUrl);
     }
-    catch (err) {
-        console.log(err.name + ': ' + err.message)
-    }
+    catch (err) { handleError(err.message) }
 }
 
 // Handle errors if they occur
@@ -48,34 +46,9 @@ function handleControlls(data) {
     const items = document.querySelectorAll('.items')
 
     // Mouse Move Controller
-    if (container) {
-        container.onmousedown = function (e) {
-            e.preventDefault();
-            pos2 = e.clientX;
-            // Close mouse
-            document.onmouseup = () => {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
-
-            // Movement of mouse
-            document.onmousemove = (e) => {
-                e.preventDefault();
-                pos1 = pos2 - e.clientX;
-                pos2 = e.clientX;
-                if (container.offsetLeft - pos1 < (-(items[0].getBoundingClientRect().width) * 12) - (items[lastGoal].getBoundingClientRect().width) - 32) {
-                    container.style.left = (-(items[0].getBoundingClientRect().width) * 12) - (items[lastGoal].getBoundingClientRect().width) - 32 + "px";
-                }
-
-                if (container.offsetLeft - pos1 > 0) {
-                    container.style.left = (0) + "px";
-                }
-
-                container.style.left = (container.offsetLeft - pos1) + "px";
-            }
-        }
-    }
-
+    try {
+        displayItems(container, items);
+    } catch (err) { handleError(err.message) }
 
 }
 
@@ -91,19 +64,47 @@ function createView(data) {
 }
 
 
-// Reuseables
-function displayItems() {
-    const items = document.querySelectorAll('.items')
+// Controller statements (Too long to be writting in the function it self, better as single reusable components)
+function displayItems(container, items) {
+    if (container) {
+        // When mouse is clicked, and held down
+        container.onmousedown = function (e) {
+            e.preventDefault();
 
-    // Goals
-    currentGoal > items.length - 5 ? currentGoal = 0 : null
-    currentGoal < 0 ? currentGoal = items.length - 5 : null
+            // Position
+            pos2 = e.clientX;
+            container.style.cursor = 'grabbing'
 
-    // Last Goals
-    lastGoal > items.length ? lastGoal = 5 : null
-    lastGoal < 5 ? lastGoal = items.length : null
+            // Movement of mouse
+            document.onmousemove = (e) => {
+                e.preventDefault();
 
-    // Display items
-    for (let item of items) { item.style.display = 'none' }
-    for (let i = currentGoal; i <= lastGoal - 1; i++) { items[i].style.display = 'block' }
+                // Positions
+                pos1 = pos2 - e.clientX;
+                pos2 = e.clientX;
+                let calcValues = -(items[currentGoal].getBoundingClientRect().width * 12) - (16 * 17);
+
+                // Hitting borders
+                if (container.offsetLeft < calcValues) container.style.left = calcValues + "px";
+                if (container.offsetLeft - pos1 > 0) container.style.left = (0) + "px";
+
+                // Direction
+                if (pos1 < 0) for (let el of items) el.style.transform = 'rotateZ(-2deg)'
+                else for (let el of items) el.style.transform = 'rotateZ(2deg)'
+
+                // Default
+                container.style.left = (container.offsetLeft - pos1) + "px";
+            }
+
+            // When you don't hold in the mouse anymore
+            document.onmouseup = () => {
+                document.onmouseup = null;
+                document.onmousemove = null;
+
+                // Default settings
+                for (let el of items) el.style.transform = 'rotateZ(0deg)'
+                container.style.cursor = 'default'
+            }
+        }
+    }
 }
