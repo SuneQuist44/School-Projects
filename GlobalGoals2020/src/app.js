@@ -4,6 +4,7 @@ import * as errorHandling from './errorHandling.js';
 
 checkEntry() // Run Script
 
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Error Handling ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 // Errorhandling
@@ -19,23 +20,25 @@ function checkEntry() {
 // Handle errors if they occur
 function handleError(message) { console.log('Error:', (message.errorMessage || message)) }
 
+
+
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Controller ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 // Fetching controls
 function handleFetchContentFromList(url) {
     fetch(url)
         .then(res => res.json())
-        .then(data => handleDistribution(data))
+        .then(data => handleDistribution(data.items))
 }
 
-// Sorting
-let currentGoal = 0; // Current Goal
-let lastGoal = 5; // Last displayed Goal
 function handleDistribution(...data) {
-    const { id, title, desc, icon, image, reqUrl } = data[0].items[currentGoal] // Destructuring Data
+    for (let el of data[0]) {
+        const { id, title, image } = el // Destructuring Data
+        scrollView(id, image, title)
+    }
 
-    createView(data[0].items)
-    handleControlls(data[0].items)
+    handleControlls(data[0])
 }
 
 function handleControlls(data) {
@@ -45,9 +48,11 @@ function handleControlls(data) {
     // Mouse Move Controller
     try {
         displayItems(container, items);
-    } catch (err) { handleError('Drag function is currently not working') }
+        onClickOfItem(container, items, data);
+    } catch (err) { handleError('Controllers are currently not working') }
 
 }
+
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Controller Components ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -69,7 +74,7 @@ function displayItems(container, items) {
                 // Positions
                 direction = xCoord - e.clientX;
                 xCoord = e.clientX;
-                let calcValues = -(items[currentGoal].getBoundingClientRect().width * 12) - (16 * 17);
+                let calcValues = -(items[0].getBoundingClientRect().width * 12) - (16 * 17);
 
                 // Hitting borders
                 if (container.offsetLeft < calcValues) container.style.left = calcValues + "px";
@@ -95,15 +100,59 @@ function displayItems(container, items) {
     }
 }
 
+// onClick of card (items)
+function onClickOfItem(container, items, data) {
+    let target;
+
+    container.addEventListener('click', (e) => {
+        if (e.target == e.target.parentElement.querySelector('img')) target = e.target.parentElement.parentElement;
+        if (e.target == e.target.parentElement.querySelector('span')) target = e.target.parentElement;
+
+        let itemObj = {
+            id: target.dataset.id,
+            title: data[target.dataset.id].title,
+            desc: data[target.dataset.id].byline,
+            image: items[target.dataset.id].querySelector('img').src,
+            url: data[Number(target.dataset.id)].request.url
+        }
+
+        localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
+
+        const { title, desc, image } = itemObj;
+        imageView(title, desc, image);
+    })
+}
+
+
+
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ View ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-function createView(data) {
+function scrollView(id, image, title) {
     let container = document.getElementById('scroll-roller');
-    for (let item of data) {
-        container.innerHTML += `
-        <li class="items">
-            <div class="image-container"><img src="${item.image}" alt="image" /></div>
-            <span class="items-title">${item.title}</span>
+
+    container.innerHTML += `
+        <li class="items" data-id="${id - 1}">
+            <div class="image-container"><img src="${image}" alt="image" /></div>
+            <span class="items-title">${title.slice(0, 14) + '...'}</span>
         </li>`;
-    }
+}
+
+(function () {
+    const imageHeader = document.getElementById('image-header__container');
+
+    imageHeader.innerHTML = `<h2>Select a Goal</h2>`
+}())
+
+function imageView(title, desc, image) {
+    const imageHeader = document.getElementById('image-header__container');
+    imageHeader.innerHTML = "";
+
+    imageHeader.innerHTML = `
+        <div class="imageHeader-image"><img src="${image}" alt="main image" /></div>
+        <article class="desc">
+            <span class="title">${title}</span>
+            <p>${desc}</p>
+        </article>
+    `
 }

@@ -8,9 +8,10 @@
 
 // Reusable components (Scroll bar)
 $amount-of-items-in-scroll: 5;
-$scroll-width: 50vw;
+$scroll-width: 40vw;
 $scroll-item-width: #{$scroll-width / $amount-of-items-in-scroll};
 $max-xCords: calc(-#{$scroll-item-width} * 12);
+$bg-color: #14140c;
 
 * {
     margin: 0;
@@ -19,7 +20,7 @@ $max-xCords: calc(-#{$scroll-item-width} * 12);
 }
 
 body {
-    @include vendor(font-family, sans-serif);
+    @include vendor(font-family, (futura-pt, sans-serif));
 }
 
 
@@ -28,66 +29,166 @@ body {
     @include vendor(overflow, hidden);
     width: 100vw;
     height: 100vh;
+    background-color: $bg-color;
 
     // Placement
     @include vendor(display, flex);
     justify-content: center;
     align-items: center;
-    
-    // Scroll Controller
-    #scroll-section {
-        @include vendor(overflow, hidden);
-        width: $scroll-width;
-        height: 100vh;
+
+    .topOfHome {
+        position: absolute;
+        top: 5%;
+        width: 50px;
+        height: 50px;
+        z-index: 999;
+    }
+
+    #image-header {
         position: relative;
-        
+        width: 100vw;
+
+        // PLacement
         @include vendor(display, flex);
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
 
-        // Moveable object
-        #scroll-roller {
-            width: auto;
-            position: absolute;
-            @include vendor(user-select, none);
-
-            @include vendor(display, flex);
-            gap: 1rem;
+        #image-header__container {
+            width: $scroll-width * 1.20;
+            perspective: 500px;
             
-            // Items
-            .items, img {
-                @include vendor(position, relative);
-                list-style: none;
-                width: $scroll-item-width;
-                border-radius: 10px;
+            h2 {
+                @include vendor(font-family, (nimbus-sans-extended, sans-serif));
+                font-size: 3rem;
+                color: white;
+                margin-bottom: 1rem;
+            }
+            
+            .imageHeader-image {
+                width: inherit;
+                overflow: hidden;
+                transition: .5s ease-out;
 
-                // Placement
                 @include vendor(display, flex);
                 justify-content: center;
-                align-items: center;
-
-                .items-title {
-                    // Placement
-                    @include vendor(position, absolute);
-                    top: 50%;
-
-                    // Styling
+                
+                img {
                     width: 100%;
-                    padding: .5rem;
-                    font-weight: bold;
+                    border-radius: 5px;
+
+                    @include vendor(background-position, center);
+                    @include vendor(background-repeat, no-repeat);
+                    @include vendor(background-size, cover);
+                    @include vendor(object-fit, cover);
+                    @include vendor(box-shadow, 0px 3px 6px rgba(0,0,0,0.2));
+                    transition: .5s ease-in;
+
+                    &:hover, &:active {
+                        width: 80%;
+                        transition: .5s ease-out;
+                        cursor: pointer;
+                        transform-style: preserve-3d;
+                        transform: rotateX(3deg);                        
+                    }
+                }
+            }
+            
+            &:hover > .imageHeader-image + .desc {
+                background-color: white;
+                border-radius: 5px;
+                transition: .5s ease-out;
+                opacity: .9;
+
+                span, p {
+                    color: $bg-color;
+                }
+            }
+
+            .desc {
+                position: absolute;
+                top: 25%;
+                padding: 1rem;
+                width: 30vw;
+
+                // Overflows
+                @include vendor(overflow-wrap, break-word);
+                @include vendor(word-wrap, break-word);
+                @include vendor(hyphens, auto);
+                @include vendor(pointer-events, none);
+
+                span {
+                    @include vendor(font-family, (nimbus-sans-extended, sans-serif));
+                    font-size: 3rem;
                     color: white;
-
-                    // Overflows
-                    @include vendor(overflow-wrap, break-word);
-                    @include vendor(word-wrap, break-word);
-                    @include vendor(hyphens, auto);
+                    font-weight: bold;
                 }
 
-                &:hover {
-                    cursor: grab;
-                    transform: scale(1.05);
+                p {
+                    font-size: 1rem;
+                    color: white;
                 }
+            }
+        }
 
-                &:active { cursor: grabbing; }
+        // Scroll Controller
+        #scroll-section {
+            position: absolute;
+            top: 85%;
+            @include vendor(overflow, hidden);
+            width: $scroll-width;
+            height: 20vh;
+            
+            @include vendor(display, flex);
+            align-items: center;
+
+            // Moveable object
+            #scroll-roller {
+                position: absolute;
+                width: auto;
+                @include vendor(user-select, none);
+
+                @include vendor(display, flex);
+                gap: 1rem;
+                
+                // Items
+                .items, img {
+                    @include vendor(position, relative);
+                    list-style: none;
+                    width: $scroll-item-width;
+                    border-radius: 5px;
+
+                    // Placement
+                    @include vendor(display, flex);
+                    justify-content: center;
+                    align-items: center;
+
+                    .items-title {
+                        // Placement
+                        @include vendor(position, absolute);
+
+                        // Styling
+                        width: 100%;
+                        padding: .5rem;
+                        @include vendor(font-family, (nimbus-sans-extended, sans-serif));
+                        font-size: .9rem;
+                        font-weight: bold;
+                        color: white;
+
+                        // Overflows
+                        @include vendor(overflow-wrap, break-word);
+                        @include vendor(word-wrap, break-word);
+                        @include vendor(hyphens, auto);
+                        @include vendor(pointer-events, none);
+                    }
+
+                    &:hover {
+                        cursor: grab;
+                        transform: scale(1.05);
+                    }
+
+                    &:active { cursor: grabbing; }
+                }
             }
         }
     }
