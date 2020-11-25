@@ -34,16 +34,16 @@ function handleFetchContentFromList(url) {
 
 function handleDistribution(...data) {
     for (let el of data[0]) {
-        const { id, title, image } = el // Destructuring Data
-        scrollView(id, image, title)
+        const { id, title, image, byline } = el // Destructuring Data
+        scrollView(id, image, title, byline)
     }
 
     handleControlls(data[0])
 }
 
 function handleControlls(data) {
-    const container = document.getElementById('scroll-roller')
-    const items = document.querySelectorAll('.items')
+    const container = document.getElementById('scroll-roller');
+    const items = document.querySelectorAll('.items');
 
     // Mouse Move Controller
     try {
@@ -51,6 +51,12 @@ function handleControlls(data) {
         onClickOfItem(container, items, data);
     } catch (err) { handleError('Controllers are currently not working') }
 
+}
+
+// On Resize of page (body)
+document.body.onresize = async () => {
+    const container = document.getElementById('scroll-roller');
+    container.style.left = "0px";
 }
 
 
@@ -105,21 +111,41 @@ function onClickOfItem(container, items, data) {
     let target;
 
     container.addEventListener('click', (e) => {
-        if (e.target == e.target.parentElement.querySelector('img')) target = e.target.parentElement.parentElement;
-        if (e.target == e.target.parentElement.querySelector('span')) target = e.target.parentElement;
+        let bodyWidth = document.body.getBoundingClientRect().width;
+        if (bodyWidth > 1080) {
+            if (e.target == e.target.parentElement.querySelector('img')) target = e.target.parentElement.parentElement;
+            if (e.target == e.target.parentElement.querySelector('span')) target = e.target.parentElement;
 
-        let itemObj = {
-            id: target.dataset.id,
-            title: data[target.dataset.id].title,
-            desc: data[target.dataset.id].byline,
-            image: items[target.dataset.id].querySelector('img').src,
-            url: data[Number(target.dataset.id)].request.url
+            let itemObj = {
+                id: target.dataset.id,
+                title: data[target.dataset.id].title,
+                desc: data[target.dataset.id].byline,
+                image: items[target.dataset.id].querySelector('img').src,
+                url: data[Number(target.dataset.id)].request.url
+            }
+
+            localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
+
+            const { title, desc, image } = itemObj;
+            imageView(title, desc, image);
+        } else {
+            if (e.target == e.target.parentElement.querySelector('img')) target = e.target.parentElement.parentElement;
+            if (e.target == e.target.parentElement.querySelector('span')) target = e.target.parentElement.parentElement;
+            if (e.target == e.target.parentElement.querySelector('.desc-number')) target = e.target.parentElement.parentElement;
+            if (e.target == e.target.parentElement.querySelector('p')) target = e.target.parentElement.parentElement;
+            if (e.target == e.target.parentElement.querySelector('.item-desc__container')) target = e.target.parentElement;
+
+            let itemObj = {
+                id: target.dataset.id,
+                title: data[target.dataset.id].title,
+                desc: data[target.dataset.id].byline,
+                image: items[target.dataset.id].querySelector('img').src,
+                url: data[Number(target.dataset.id)].request.url
+            }
+
+            localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
+            window.location.href = '../public/details.html';
         }
-
-        localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
-
-        const { title, desc, image } = itemObj;
-        imageView(title, desc, image);
     })
 }
 
@@ -128,20 +154,24 @@ function onClickOfItem(container, items, data) {
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ View ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-function scrollView(id, image, title) {
+function scrollView(id, image, title, byline) {
     let container = document.getElementById('scroll-roller');
 
     container.innerHTML += `
         <li class="items" data-id="${id - 1}">
             <div class="image-container"><img src="${image}" alt="image" /></div>
             <span class="items-title">${title.slice(0, 14) + '...'}</span>
+            <div class="item-desc__container">
+                <span class="desc-title">${title}</span>
+                <p class="desc-byline">${byline}</p>
+                <span class="desc-number">${id - 1}</span>
+            </div>
         </li>`;
 }
 
 (function () {
     const imageHeader = document.getElementById('image-header__container');
-
-    imageHeader.innerHTML = `<h2>Select a Goal</h2>`
+    imageHeader.innerHTML = `<h2>Select a Goal</h2>`;
 }())
 
 function imageView(title, desc, image) {

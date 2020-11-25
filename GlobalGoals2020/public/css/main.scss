@@ -24,7 +24,8 @@ body {
 }
 
 
-// Main
+@media (min-width: 1080px) {
+    // Main
 #home-section {
     @include vendor(overflow, hidden);
     width: 100vw;
@@ -60,7 +61,7 @@ body {
             
             h2 {
                 @include vendor(font-family, (nimbus-sans-extended, sans-serif));
-                font-size: 3rem;
+                font-size: 3vw;
                 color: white;
                 margin-bottom: 1rem;
             }
@@ -109,7 +110,7 @@ body {
                 position: absolute;
                 top: 25%;
                 padding: 1rem;
-                width: 30vw;
+                width: 40vw;
 
                 // Overflows
                 @include vendor(overflow-wrap, break-word);
@@ -119,13 +120,13 @@ body {
 
                 span {
                     @include vendor(font-family, (nimbus-sans-extended, sans-serif));
-                    font-size: 3rem;
+                    font-size: 2.25vw;
                     color: white;
                     font-weight: bold;
                 }
 
                 p {
-                    font-size: 1rem;
+                    font-size: 1.25vw;
                     color: white;
                 }
             }
@@ -134,7 +135,7 @@ body {
         // Scroll Controller
         #scroll-section {
             position: absolute;
-            top: 85%;
+            top: calc(85% - 4vh);
             @include vendor(overflow, hidden);
             width: $scroll-width;
             height: 20vh;
@@ -163,6 +164,8 @@ body {
                     justify-content: center;
                     align-items: center;
 
+                    .item-desc__container { display: none; }
+
                     .items-title {
                         // Placement
                         @include vendor(position, absolute);
@@ -171,7 +174,7 @@ body {
                         width: 100%;
                         padding: .5rem;
                         @include vendor(font-family, (nimbus-sans-extended, sans-serif));
-                        font-size: .9rem;
+                        font-size: 1.2vw;
                         font-weight: bold;
                         color: white;
 
@@ -192,4 +195,100 @@ body {
             }
         }
     }
+}
+}
+
+@media (max-width: 1080px) {
+        // Main
+#home-section {
+    width: 100%;
+    height: auto;
+    background-color: $bg-color;
+    gap: 10vh;
+
+    // Placement
+    @include vendor(display, flex);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .topOfHome {
+        margin-top: 5vh;
+        width: 50px;
+        height: 50px;
+        z-index: 999;
+    }
+
+    #image-header {
+        @include vendor(overflow, hidden);
+        width: 100%;
+        
+        #image-header__container { display: none; }
+        
+        // Scroll Controller
+        #scroll-section {
+            @include vendor(display, flex);
+            flex-direction: column;
+            align-items: center;
+
+            // Moveable object
+            #scroll-roller {
+                width: auto;
+                @include vendor(user-select, none);
+
+                @include vendor(display, flex);
+                flex-direction: column;
+                gap: 2rem;
+                
+                // Items
+                .items, img {
+                    position: relative;
+                    height: auto;
+                    list-style: none;
+                    width: 50vw;
+                    height: auto;
+                    border-radius: 5px;
+                    overflow: hidden;
+
+                    // Placement
+                    @include vendor(display, flex);
+                    justify-content: center;
+                    align-items: center;
+
+                    .items-title { display: none; }
+                    
+                    .item-desc__container {
+                        @include vendor(position, absolute);
+                        width: 100%;
+                        height: 100%;
+                        padding: 1rem;
+                        color: white;
+
+                        display: grid;
+                        grid-template-rows: auto auto 1fr;
+
+                        .desc-title {    
+                            // Styling
+                            @include vendor(font-family, (nimbus-sans-extended, sans-serif));
+                            font-size: 1rem;
+                            font-weight: bold;
+                        }
+
+                        .desc-number {
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: flex-end;
+
+                            font-weight: bold;
+                        }
+                    }
+
+                    &:hover, &:active { transform: scale(1.05); }
+                    &:hover, &:active { cursor: pointer; }
+                }
+                .items:last-child { margin-bottom: 10vh; }
+            }
+        }
+    }
+}
 }
