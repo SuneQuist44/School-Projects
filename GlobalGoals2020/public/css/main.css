@@ -21,7 +21,7 @@ body {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-    background-color: #14140c;
+    background-color: #fff;
     -moz-display: flex;
     -webkit-display: flex;
     -ms-display: flex;
@@ -35,11 +35,22 @@ body {
             align-items: center;
   }
   #home-section .topOfHome {
+    width: 100%;
     position: absolute;
     top: 5%;
-    width: 50px;
-    height: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     z-index: 999;
+  }
+  #home-section .topOfHome img {
+    width: 8vw;
   }
   #home-section #image-header {
     position: relative;
@@ -61,7 +72,7 @@ body {
             align-items: center;
   }
   #home-section #image-header #image-header__container {
-    width: 48vw;
+    width: 60vw;
     -webkit-perspective: 500px;
             perspective: 500px;
   }
@@ -71,7 +82,7 @@ body {
     -ms-font-family: nimbus-sans-extended, sans-serif;
     font-family: nimbus-sans-extended, sans-serif;
     font-size: 3vw;
-    color: white;
+    color: #000;
     margin-bottom: 1rem;
   }
   #home-section #image-header #image-header__container .imageHeader-image {
@@ -173,7 +184,7 @@ body {
     -webkit-overflow: hidden;
     -ms-overflow: hidden;
     overflow: hidden;
-    width: 40vw;
+    width: 50vw;
     height: 20vh;
     -moz-display: flex;
     -webkit-display: flex;
@@ -204,7 +215,7 @@ body {
     -ms-position: relative;
     position: relative;
     list-style: none;
-    width: 8vw;
+    width: 10vw;
     border-radius: 5px;
     -moz-display: flex;
     -webkit-display: flex;
@@ -228,10 +239,6 @@ body {
     position: absolute;
     width: 100%;
     padding: .5rem;
-    -moz-font-family: nimbus-sans-extended, sans-serif;
-    -webkit-font-family: nimbus-sans-extended, sans-serif;
-    -ms-font-family: nimbus-sans-extended, sans-serif;
-    font-family: nimbus-sans-extended, sans-serif;
     font-size: 1.2vw;
     font-weight: bold;
     color: white;
@@ -267,7 +274,7 @@ body {
   #home-section {
     width: 100%;
     height: auto;
-    background-color: #14140c;
+    background-color: #fff;
     gap: 10vh;
     -moz-display: flex;
     -webkit-display: flex;
@@ -286,10 +293,21 @@ body {
             align-items: center;
   }
   #home-section .topOfHome {
-    margin-top: 5vh;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     z-index: 999;
+    margin-top: 5vh;
+  }
+  #home-section .topOfHome img {
+    width: 20%;
   }
   #home-section #image-header {
     -moz-overflow: hidden;

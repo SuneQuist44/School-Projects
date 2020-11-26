@@ -110,24 +110,19 @@ function displayItems(container, items) {
 function onClickOfItem(container, items, data) {
     let target;
 
+    const imageHeader = document.getElementById('image-header__container');
+    imageHeader.addEventListener('click', (e) => { window.location.href = '../public/details.html'; })
+
     container.addEventListener('click', (e) => {
         let bodyWidth = document.body.getBoundingClientRect().width;
         if (bodyWidth > 1080) {
             if (e.target == e.target.parentElement.querySelector('img')) target = e.target.parentElement.parentElement;
             if (e.target == e.target.parentElement.querySelector('span')) target = e.target.parentElement;
 
-            let itemObj = {
-                id: target.dataset.id,
-                title: data[target.dataset.id].title,
-                desc: data[target.dataset.id].byline,
-                image: items[target.dataset.id].querySelector('img').src,
-                url: data[Number(target.dataset.id)].request.url
-            }
+            let itemObj = createLocalObject(data, items, target.dataset.id);
 
-            localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
-
-            const { title, desc, image } = itemObj;
-            imageView(title, desc, image);
+            const { title, desc, image, id } = itemObj;
+            imageView(title, desc, image, id);
         } else {
             if (e.target == e.target.parentElement.querySelector('img')) target = e.target.parentElement.parentElement;
             if (e.target == e.target.parentElement.querySelector('span')) target = e.target.parentElement.parentElement;
@@ -135,20 +130,25 @@ function onClickOfItem(container, items, data) {
             if (e.target == e.target.parentElement.querySelector('p')) target = e.target.parentElement.parentElement;
             if (e.target == e.target.parentElement.querySelector('.item-desc__container')) target = e.target.parentElement;
 
-            let itemObj = {
-                id: target.dataset.id,
-                title: data[target.dataset.id].title,
-                desc: data[target.dataset.id].byline,
-                image: items[target.dataset.id].querySelector('img').src,
-                url: data[Number(target.dataset.id)].request.url
-            }
-
-            localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
+            createLocalObject(data, items, target.dataset.id);
             window.location.href = '../public/details.html';
         }
     })
 }
 
+// Create local storage object from target
+function createLocalObject(data, items, id) {
+    let itemObj = {
+        id: id,
+        title: data[id].title,
+        desc: data[id].byline,
+        image: items[id].querySelector('img').src,
+        url: data[Number(id)].request.url
+    }
+
+    localStorage.setItem('details', JSON.stringify({ id: itemObj.id, url: itemObj.url }));
+    return itemObj
+}
 
 
 
@@ -163,7 +163,7 @@ function scrollView(id, image, title, byline) {
             <span class="items-title">${title.slice(0, 14) + '...'}</span>
             <div class="item-desc__container">
                 <span class="desc-title">${title}</span>
-                <p class="desc-byline">${byline}</p>
+                <p class="desc-byline">${byline.slice(0, 50) + '...'}</p>
                 <span class="desc-number">${id - 1}</span>
             </div>
         </li>`;
@@ -174,12 +174,12 @@ function scrollView(id, image, title, byline) {
     imageHeader.innerHTML = `<h2>Select a Goal</h2>`;
 }())
 
-function imageView(title, desc, image) {
+function imageView(title, desc, image, id) {
     const imageHeader = document.getElementById('image-header__container');
     imageHeader.innerHTML = "";
 
     imageHeader.innerHTML = `
-        <div class="imageHeader-image"><img src="${image}" alt="main image" /></div>
+        <div class="imageHeader-image" data-id="${id}"><img src="${image}" alt="main image" /></div>
         <article class="desc">
             <span class="title">${title}</span>
             <p>${desc}</p>

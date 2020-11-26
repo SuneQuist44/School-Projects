@@ -8,7 +8,7 @@
 
 // Reusable components (Scroll bar)
 $amount-of-items-in-scroll: 5;
-$scroll-width: 40vw;
+$scroll-width: 50vw;
 $scroll-item-width: #{$scroll-width / $amount-of-items-in-scroll};
 $max-xCords: calc(-#{$scroll-item-width} * 12);
 $bg-color: #14140c;
@@ -30,7 +30,7 @@ body {
     @include vendor(overflow, hidden);
     width: 100vw;
     height: 100vh;
-    background-color: $bg-color;
+    background-color: #fff;
 
     // Placement
     @include vendor(display, flex);
@@ -38,11 +38,16 @@ body {
     align-items: center;
 
     .topOfHome {
+        width: 100%;
         position: absolute;
         top: 5%;
-        width: 50px;
-        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         z-index: 999;
+        img {
+            width: 8vw;
+        }
     }
 
     #image-header {
@@ -62,7 +67,7 @@ body {
             h2 {
                 @include vendor(font-family, (nimbus-sans-extended, sans-serif));
                 font-size: 3vw;
-                color: white;
+                color: #000;
                 margin-bottom: 1rem;
             }
             
@@ -173,7 +178,6 @@ body {
                         // Styling
                         width: 100%;
                         padding: .5rem;
-                        @include vendor(font-family, (nimbus-sans-extended, sans-serif));
                         font-size: 1.2vw;
                         font-weight: bold;
                         color: white;
@@ -203,7 +207,7 @@ body {
 #home-section {
     width: 100%;
     height: auto;
-    background-color: $bg-color;
+    background-color: #fff;
     gap: 10vh;
 
     // Placement
@@ -213,10 +217,15 @@ body {
     align-items: center;
 
     .topOfHome {
-        margin-top: 5vh;
-        width: 50px;
-        height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         z-index: 999;
+        margin-top: 5vh;
+        img {
+            width: 20%;
+        }
     }
 
     #image-header {
